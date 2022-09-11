@@ -1,0 +1,201 @@
+#overview_title{
+    width: 200px;
+    display:  inline-block;
+    float: left;
+    heigt: 100px;
+}
+#num_overviews{
+    display: inline-block;
+    width: 100px;
+    float: right;
+    margin: 12.5px 1% 12.5px 12.5px;
+}
+#overviews_label{
+    display: inline-block;
+    float:  right;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+#overview_tables_wrapper{
+    width: 100%;
+}
+#overview_tables_wrapper_list{
+    width: 100%;
+}
+.splide__slide{
+   /* margin: 10px 10px 10px 10px;*/
+}
+.splide__pagination{
+    display: block;
+    width: 28px;
+    height: 22px;
+    margin: 0 auto;
+    position: absolute;
+    background: #DDDDDD;
+    top: -25px;
+    border-radius: 10px;
+}
+.table_overview_wrapper{
+    display: inline-block;
+    clear: left;
+    width: 95%;
+    float: left;
+    margin: 10px 0 20px 5%;  
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    /* height: 640px; */
+}
+
+.splide__track ul li div:nth-child(2) {
+    margin: 10px 0px 20px 0px; 
+}
+.cube-overview-title{
+    text-align:center;
+    margin: 20px;
+}
+.label{
+    width: 120px;
+    display: inline-block;
+    text-align: center;
+    float: left;
+    font-family: 'Roboto', sans-serif;
+}
+.dropdowns{
+    width: 100px;
+    float: left;
+}
+.wrapper_form{
+    width: fit-content;
+    margin: 0 auto;
+}
+.cube-table-wrapper{
+    width: 95%;
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: auto;  /* Hide the horizontal scroll */
+    background:  #DDDDDD;
+    height:400px;
+    margin: 20px auto 0 auto;
+    border-radius: 10px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+.cube-table{
+	border: 1px solid #888888;
+	border-radius: 10px;
+}
+.cube-table-wrapper td, .cube-table-wrapper th{
+	width: 100px;
+	text-align: center;
+	border: 1px solid #888888;
+}
+.cube-table-wrapper th{
+	background: #00549F;
+    color: white;
+}
+
+.table_heading{
+	background-color: #00549F;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-family: 'Roboto', sans-serif;
+    padding: 5px;
+}
+
+.overview-nav {
+    list-style-type: none;
+    margin: 20px 0 0 20px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    height: 47px;
+    width: calc(100% - 40px);
+    border-radius: 10px;
+  }
+  
+.overview-nav li {
+    float: left;
+    width: 33.33%;
+  }
+  
+.overview-nav li p {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin: 0;
+}
+  
+/* Change the link color to #111 (black) on hover */
+.overview-nav li p:hover {
+background-color: #111;
+}
+
+.overview-nav li .active {
+    background-color: #04AA6D;
+}
+
+.freq-item-wrapper {
+    width: 95%;
+    height:fit-content;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+.freq-item-wrapper select{
+    margin: 0 20px;
+}
+
+.freq-item-wrapper select,label,button,input {
+    display: inline-block;
+    float: none;
+}
+.freq-table-wrapper{
+    width: 95%;
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: auto;  /* Hide the horizontal scroll */
+    background:  #DDDDDD;
+    height:230px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.freq-table{
+    display: table;
+	border: 1px solid #888888;
+	border-radius: 10px;
+}
+.freq-table td{
+	width: 100px;
+	text-align: center;
+	border: 1px solid #888888;
+}
+.freq-table td{
+	width: 100px;
+	text-align: center;
+	border: 1px solid #888888;
+}
+.filter-btn{
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+.dfg_img{
+    width: 90%;
+    margin: 5%;
+}
+
+.logs-opt-wrapper{
+    display: block;
+    width: 200px;
+    margin: 20px auto 0 auto;
+}
+
+.logs-opt-wrapper select,label,button,input {
+    display: inline-block;
+    float: none;
+}

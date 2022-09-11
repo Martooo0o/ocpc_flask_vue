@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href= "{{ url_for('static',filename='css/style.css') }}">
+<link rel="stylesheet" href= "{{ url_for('static',filename='css/logs_display_style.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide.min.css">
+<link rel="stylesheet" href= "{{ url_for('static',filename='css/cube_overview_style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="header_wrapper">
+		<p id="header_title">Object-Centric Process Cubes</p>
+		<!-- <p id="header_undertitle">Object-Centric Process Cube</p> -->
+	</div>
+	<h3>Event Logs</h3>
+
+	<form >
+		<label id="fileselect_label">
+			<input id="upload" type=file   accept="json" name="files[]" size=30 class="custom-file-input">
+			<span id="fileselect_txt" style="overflow: hidden; position: relative; top: 2.5px">Choose File ...</span>
+		</label>
+	</form>
+
+	<h3 id="no-file-uploaded">No File uploaded</h3>
+
+	<ul id="list_tables">
+	</ul>
+
+	<div id="create_cube">
+		<label id="create_cube_title">Create New Cube</label>
+	  	<input type="text" id="fname" name="fname" placeholder="Cube Name">
+        <div class="select">
+          <select id="new_c_time_h" {#disabled="disabled"#}>
+            <option value="" disabled selected>Select time hierarchy</option>
+            <option value="Year">Year</option>
+            <option value="Month">Month</option>
+            <option value="Day">Day</option>
+            <option value="Hour">Hour</option>
+            <option value="Minute">Minute</option>
+          </select>
+          <div class="select__arrow"></div>
+        </div>
+	  	<input id="create_cube_btn" type="submit" value="Create">
+	</div>
+
+	<hr style="margin-top:20px">
+
+	<h3 id="overview_title">Cubes Overview</h3>
+
+	
+	<select id="num_overviews" class="dropdowns" existance>
+		  		<option value="2">2</option>
+	  			<option value="3">3</option>
+	  			<option value="4">4</option>
+	  			<option value="5">5</option>
+	  			<option value="6">6</option>
+	  			<option value="7">7</option>
+	  			<option value="8">8</option>
+  	</select>
+  	<label id="overviews_label"for="num_overviews">Overviews:</label>
+
+  	<br>
+  	<br>
+
+  	<!-- <div id="overview_tables_wrapper">
+  		
+  	</div> -->
+
+  	<div class="splide">
+	  <div class="splide__track" id="overview_tables_wrapper">
+			<ul class="splide__list" id="overview_tables_wrapper_list">
+				<!-- <li class="splide__slide">Slide 01</li>
+				<li class="splide__slide">Slide 02</li>
+				<li class="splide__slide">Slide 03</li> -->
+			</ul>
+	  </div>
+	</div>
+
+	<div id="loading_wrapper">
+		<div id="loading_card">
+			<h3 id="loading_title">Creating Cube ...</h3>
+			<p id="loading_desc">Calculating</p>
+			<div class="loader"></div>
+		</div>
+	</div>
+
+	<div id="canvas">
+
+	</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.js" integrity="sha512-2h6nRNAf9ejT/sqEs1Pg7mmafcJCla+tVGo1zDQDH1U+abXb0CxzjGIJEFpzHSfG27bGHM4K+UpDXwaF0gzCHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/graphdracula/1.0.2/dracula.dev.js" integrity="sha512-n2Dm32OsVI2Q/6JEVsslvOs5cjxRNZyfQ5EXtin9ZaAlwbuzZwvbg09Z4bMUazi0Fg5zvdrlOuLU8sYHGpzVxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
+<script src="{{ url_for('static',filename='js/comparators.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static',filename='js/pm4js_latest.js') }}" ></script>
+<script src="{{ url_for('static',filename='js/cube_operations.js') }}" ></script>
+<script src="{{ url_for('static',filename='js/cube_creation.js') }}" ></script>
+<script src="{{ url_for('static',filename='js/myscripts.js') }}" ></script>
+<script>
+	$SCRIPT_ROOT = {{ request.script_root|tojson }};
+	console.log("Root in HTML: " + $SCRIPT_ROOT);
+</script>
+
+</body>
+</html>

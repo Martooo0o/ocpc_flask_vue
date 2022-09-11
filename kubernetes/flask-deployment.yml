@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+  labels:
+    name: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - name: flask
+        image: marto0o/flask-ocpc:latest
+        env:
+        - name: POSTGRES_DB
+          value: "ocpc_db_prod"
+        - name: DATABASE
+          value: "postgres"
+        - name: SQL_HOST
+          value: "postgres"
+        - name: SQL_PORT
+          value: "5432"
+        - name: FLASK_ENV
+          value: "development"
+        - name: APP_SETTINGS
+          value: "app.kb_config.DevelopmentConfig"
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: { }
+      terminationGracePeriodSeconds: 30
