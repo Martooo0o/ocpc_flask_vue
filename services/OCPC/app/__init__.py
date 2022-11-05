@@ -69,6 +69,7 @@ def create_app(test_config=None):
 
     app.config.from_object(app_settings)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     jwt = JWTManager(app)
     db.init_app(app)

@@ -218,10 +218,10 @@ def calcFreqCube(event_df, obj_df, dimens):
                                         allVal = countsAll.loc[countsAll[""] == temp_val2  , temp_val1].tolist()[0]
                                         pairDataAll[temp_val1+','+temp_val2] = allVal
 
-                        if x == 'Even   Preliminariets':
+                        if x == 'Events':
                             attr1 = attr1[6:]
 
-                         if y ==      "Events":
+                        if y ==  "Events":
                             attr2 = attr2[6:]
 
                         testDict['All'][attr1 + "," + attr2] = pairDataAll

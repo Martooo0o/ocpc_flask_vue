@@ -10,19 +10,20 @@ import json
 
 auth = Blueprint('auth', __name__, url_prefix="/auth")
 CORS(auth, resources={r"*": {"origins": "*"}})
+# CORS(auth, supports_credentials=True, resources={r"*": {"origins": "*"}})
+# CORS(auth, resources={r"/auth": {"origins": "http://0.0.0.0:5000"}})
 
-# example code
-# @auth.after_request
-# def add_header(r):
-#     """
-#     Add headers to both force latest IE rendering engine or Chrome Frame,
-#     and also to cache the rendered page for 10 minutes.
-#     """
-#     r.headers["Cache-Control"] = "no-cache, no-store"
-#     r.headers["Pragma"] = "no-cache"
-#     r.headers["Expires"] = "0"
-#     r.headers['Cache-Control'] = 'public, max-age=0'
-#     return r
+@auth.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -165,6 +166,7 @@ def signup():
 
     response = make_response({"success": "New user was register"})
     response.cache_control.no_cache = True
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @auth.route('/logout', methods=['POST'])
