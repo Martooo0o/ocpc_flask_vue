@@ -88,13 +88,6 @@ def calcFreqCube(event_df, obj_df, dimens):
                                                                                     (np.float64, float)) else temp_val1
                                     temp_val2 = np.float64(temp_val2) if isinstance(countsE.loc[0][countsE.columns[0]],
                                                                                     (np.float64, float)) else temp_val2
-                                    # print(countsE)
-                                    # print(countsE.columns)
-                                    # print(countsE.columns[0])
-                                    #
-                                    # print("Looking at " +   temp_val1 + " " + temp_val2)
-                                    # print(type(temp_val1))
-                                    # print(type(temp_val2))
 
                                     # if x == "Events" or y == "Events":
                                     if not temp_val1 in countsE.columns:
@@ -125,19 +118,16 @@ def calcFreqCube(event_df, obj_df, dimens):
                                             0]
                                     elif isinstance(countsE.loc[0][countsE.columns[0]], (np.float64, float)) and not isinstance(
                                             countsE.columns[1], (np.float64, float)):
-                                        eVal = \
-                                        countsE.loc[abs(countsAll[countsAll.columns[0]] - temp_val2) < 1e-10, temp_val1].tolist()[0]
+                                        eVal = countsE.loc[abs(countsAll[countsAll.columns[0]] - temp_val2) < 1e-10, temp_val1].tolist()[0]
 
                                         # print(countsAll)
-                                        allVal = \
-                                        countsAll.loc[abs(countsAll[countsAll.columns[0]] - temp_val2) < 1e-10, temp_val1].tolist()[0]
+                                        allVal = countsAll.loc[abs(countsAll[countsAll.columns[0]] - temp_val2) < 1e-10, temp_val1].tolist()[0]
                                     else:
                                         # print()
                                         eVal = countsE.loc[countsE[countsE.columns[0]] == temp_val2, temp_val1].tolist()[0]
 
                                         # print(countsAll)
                                         allVal = countsAll.loc[countsAll[countsAll.columns[0]] == temp_val2, temp_val1].tolist()[0]
-
                                     pairDataExistance[temp_val1 + ',' + temp_val2] = eVal
                                     pairDataAll[temp_val1 + ',' + temp_val2] = allVal
                                 else:

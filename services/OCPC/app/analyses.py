@@ -16,6 +16,8 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori, fpmax, fpgrowth
 from mlxtend.frequent_patterns import association_rules
 from . import freq_items as fi
+import collections.abc
+import numpy as np
 
 analyses = Blueprint('analyses', __name__, url_prefix="/analyses")
 CORS(analyses, supports_credentials=True)
@@ -313,21 +315,73 @@ def setAnalysisFilters(analysisname):
                                 events_combined = filtered1_df.append(filtered2_df, ignore_index=True)
                                 objs_combined = filtered1_obj_df.append(filtered2_obj_df, ignore_index=True)
 
+                                print(events_combined)
+
+                                # for e in events_combined.index:
+                                #     duplicate_events = events_combined[events_combined['event_id'] == events_combined.loc[e].event_id]
+                                #     duplicate = None
+                                #     if len(duplicate_events.index)>1 and events_combined.loc[e][new_filter['type_dim1']] is None:
+                                #         duplicate = duplicate_events[pd.isnull(duplicate_events[new_filter['type_dim1']])].first
+                                #         print(duplicate)
+                                #         events_combined.loc[e, new_filter['type_dim1']] = duplicate[new_filter['type_dim1']]
+                                #     elif len(duplicate_events.index)>1 :
+                                #         duplicate = duplicate_events[pd.isnull(duplicate_events[new_filter['type_dim2']])].first
+                                #         print(duplicate)
+                                #         events_combined.loc[e, new_filter['type_dim2']] = duplicate[new_filter['type_dim2']]
+                                #
+                                #     if not duplicate is None:
+                                #         events_combined.drop(duplicate.index)
+                                print(events_combined['event_id'].tolist())
+                                # print(events_combined['event_id'].tolist())
+                                vals = events_combined['event_id'].tolist()
+
+                                # for e in events_combined.index:
+                                #     event = events_combined.loc[e]
+                                #
+                                print(vals)
+                                print(type(vals))
+                                print(original_df['event_id'])
+                                print(type(original_df['event_id']))
+                                print(original_df['event_id'].isin(vals))
+
+                                temp_events_combined = original_df.loc[original_df['event_id'].isin(vals)]
+                                print(temp_events_combined)
+                                events_combined = temp_events_combined
+
                                 # BASED ON THE MATERIALISATION
                                 # CHECK EVERY EVENT AND WHETHER IT INCLUDES AN OBJECT FROM THE COMBINED TEMP FILTERED OBJECTS
                                 if new_filter['mat'] == 'Existence':
                                     # print(list(events_combined.columns))
                                     for e in events_combined.index:
                                         event = events_combined.loc[e]
-                                        # IN THE DATAFRAME THE LIST THE OBJECTS OF SPECIFIC TYPE ARE STORES AS A LIST WITH KEY=OBJECT_TYPE
 
+                                        # duplicate_events = events_combined[events_combined['event_id'] == event.event_id]
+                                        # print(duplicate_events)
+
+                                        # IN THE DATAFRAME THE LIST THE OBJECTS OF SPECIFIC TYPE ARE STORES AS A LIST WITH KEY=OBJECT_TYPE
                                         objs1_list = event[new_filter['type_dim1']]
                                         objs2_list = event[new_filter['type_dim2']]
+
+
+                                        if not isinstance(objs1_list, collections.abc.Sequence):
+                                            objs1_list = [objs1_list]
+
+                                        if not isinstance(objs2_list, collections.abc.Sequence):
+                                            objs2_list = [objs2_list]
+
+                                        # if len(duplicate_events.index)>1 and pd.isna(objs1_list).any():
+                                        #     duplicate = duplicate_events[duplicate_events[new_filter['type_dim1']] != None]
+                                        #     objs1_list = duplicate[new_filter['type_dim1']]
+                                        # elif len(duplicate_events.index)>1 and pd.isna(objs2_list).any():
+                                        #     duplicate = duplicate_events[duplicate_events[new_filter['type_dim2']] != None]
+                                        #     objs2_list = duplicate[new_filter['type_dim2']]
 
                                         is_allowed = False
                                         # TODO SEPARATE THIS TO 2 SEPARATE LOOPS TO MAKE FASTER
                                         print(objs1_list)
+                                        print(type(objs1_list))
                                         print(objs2_list)
+                                        print(type(objs2_list))
                                         if not pd.isna(objs1_list).any() and not pd.isna(objs2_list).any():
                                             for x in objs1_list:
                                                 for y in objs2_list:
@@ -620,11 +674,11 @@ def get_freq_itemsets():
                         print(df)
                         frequent_itemsets = None
                         if freq_set_alg == "apriori":
-                            frequent_itemsets = apriori(df, min_support=min_supp, use_colnames=True)
+                            frequent_itemsets = apriori(df, min_support=float(min_supp), use_colnames=True)
                         elif freq_set_alg == "fpmax":
-                            frequent_itemsets = fpmax(df, min_support=min_supp, use_colnames=True)
+                            frequent_itemsets = fpmax(df, min_support=float(min_supp), use_colnames=True)
                         elif freq_set_alg == "fpgrowth":
-                            frequent_itemsets = fpgrowth(df, min_support=min_supp, use_colnames=True)
+                            frequent_itemsets = fpgrowth(df, min_support=float(min_supp), use_colnames=True)
                         else:
                             print("Wrong algorithm")
 
@@ -636,7 +690,7 @@ def get_freq_itemsets():
                         out = {'data': []}
                         for itemSetIndex in frequent_itemsets.index:
                             row = frequent_itemsets.loc[itemSetIndex]
-                            if len(row['itemsets']) >= set_size:
+                            if len(row['itemsets']) >= int(set_size):
                                 listMappedObjs = []
                                 for obj in row['itemsets']:
                                     listMappedObjs.append(obj)
@@ -648,7 +702,6 @@ def get_freq_itemsets():
                         return jsonify(result={'freq_itemsets': out['data'],
                                                # 'assoc_rules': assoc_rules_out
                                                })
-
 
 def isfloat(x):
     try:

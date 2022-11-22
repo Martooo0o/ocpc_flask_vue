@@ -87,9 +87,10 @@ def login():
 @auth.route('/refresh', methods=('POST',))
 @jwt_required(refresh=True)
 def refresh():
-    user_id = get_jwt_identity()
-    user = User.query.filter_by(user_id=user_id).first()
-    access_token = create_access_token(identity=user.user_id)
+    usr = get_jwt_identity()
+    print("JWT identity: " + usr)
+    usr_obj = User.query.filter_by(email=usr).first()
+    access_token = create_access_token(identity=usr_obj.email)
 
     # response = jsonify()
     # set_access_cookies(response, access_token)

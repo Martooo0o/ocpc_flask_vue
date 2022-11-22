@@ -211,13 +211,25 @@ def get_cube_dim(cubename):
                 if cube.name == escape(cubename):
                     if mat == "Existence":
                         print("Mat is existence")
-                        result = json.dumps(json.loads(cube.freq_existence)[dim1+','+dim2])
-                        print(result)
-                        return jsonify(result), 200
+                        print(json.loads(cube.freq_existence).keys())
+                        if dim1+','+dim2 in json.loads(cube.freq_existence).keys():
+                            result = json.dumps(json.loads(cube.freq_existence)[dim1+','+dim2])
+                            return jsonify(result), 200
+                        else:
+                            result = json.loads(cube.freq_existence)[dim2 + ',' + dim1]
+                            reversed_result = {}
+                            for k in result.keys():
+                                splitted_dims = k.split(',')
+                                reversed_result[splitted_dims[1] + ',' + splitted_dims[0]] = result[k]
+                            print('Result')
+                            print(result)
+                            print('Reversed')
+                            print(reversed_result)
+                            reversed_result = json.dumps(reversed_result)
+                            return jsonify(reversed_result), 200
                     else:
                         print("Mat is all")
                         result = json.dumps(json.loads(cube.freq_all)[dim1 + ',' + dim2])
-                        print(result)
                         return jsonify(result), 200
 
         return jsonify({
